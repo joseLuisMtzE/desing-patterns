@@ -1,8 +1,13 @@
 package ejerciciocommandpattern;
 
+import java.util.Scanner;
+
 public class EjercicioCommandPattern {
 
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        boolean continuar = true;
+        int indexButton;
         Receiver receiver = new Receiver();
 
         Invoker invoker = new Invoker();
@@ -13,17 +18,21 @@ public class EjercicioCommandPattern {
         FormaNegraCommand formaNegra = new FormaNegraCommand(receiver);
         Terminar terminar = new Terminar(receiver);
 
-        invoker.setCommand(saludar);
-        invoker.pressButton();
+        invoker.addCommand(saludar);
+        invoker.addCommand(fechaYHora);
+        invoker.addCommand(formaRoja);
+        invoker.addCommand(formaNegra);
+        invoker.addCommand(terminar);
 
-        invoker.setCommand(fechaYHora);
-        invoker.pressButton();
-        invoker.setCommand(formaRoja);
-        invoker.pressButton();
-        invoker.setCommand(formaNegra);
-        invoker.pressButton();
-        invoker.setCommand(terminar);
-        invoker.pressButton();
+        while (continuar) {
+            invoker.printCommands();
+            System.out.print("Numero de comando: ");
+            indexButton = scanner.nextInt();
+
+            invoker.pressButton(indexButton);
+            System.out.println("-----------------------\n");
+
+        }
 
     }
 }

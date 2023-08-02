@@ -1,16 +1,29 @@
 package ejerciciocommandpattern;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Invoker {
 
-    ICommand command;
+    List<ICommand> commands = new ArrayList<>();
 
-    public void setCommand(ICommand command) {
-        this.command = command;
-
+    public void addCommand(ICommand command) {
+        commands.add(command);
     }
 
-    public void pressButton() {
-        command.execute();
+    public void pressButton(int index) {
+        if (index >= 0 && index < commands.size()) {
+            ICommand command = commands.get(index);
+            command.execute();
+        } else {
+            System.out.println("Invalid command index.");
+        }
+    }
+
+    public void printCommands() {
+        for (int i = 0; i < commands.size(); i++) {
+            System.out.println(i + ". " + commands.get(i).getClass().getSimpleName());
+        }
     }
 
 }
