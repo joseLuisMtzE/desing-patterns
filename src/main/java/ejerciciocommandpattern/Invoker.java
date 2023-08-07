@@ -6,24 +6,37 @@ import java.util.List;
 public class Invoker {
 
     List<ICommand> commands = new ArrayList<>();
+    List<String> commandsName = new ArrayList<>();
 
     public void addCommand(ICommand command) {
         commands.add(command);
+        commandsName.add(command.getNombre());
     }
 
-    public void pressButton(int index) {
-        if (index >= 0 && index < commands.size()) {
-            ICommand command = commands.get(index);
-            command.execute();
+    public void pressButton(String key) {
+        if (checkCommandExists(key)) {
+            for (int i = 0; i < commands.size(); i++) {
+                if (commands.get(i).getNombre().equals(key)) {
+                    ICommand command = commands.get(i);
+                    command.execute();
+                }
+            }
         } else {
-            System.out.println("Invalid command index.");
+            CommandException err = new CommandException("El comando '" + key + "' no esta soportado.");
+            err.printStackTrace();
         }
     }
 
-    public void printCommands() {
-        for (int i = 0; i < commands.size(); i++) {
-            System.out.println(i + ". " + commands.get(i).getClass().getSimpleName());
+    public boolean checkCommandExists(String key) {
+        if (commandsName.contains(key)) {
+            return true;
+        } else {
+            return false;
         }
+    }
+
+    public List<String> getCommandsName() {
+        return commandsName;
     }
 
 }
