@@ -9,8 +9,8 @@ public class EjercicioCommandPattern {
         Scanner scanner = new Scanner(System.in);
         boolean continuar = true;
         String key;
+        
         Receiver receiver = new Receiver();
-
         Invoker invoker = new Invoker();
 
         SaludarCommand saludar = new SaludarCommand(receiver);
@@ -29,7 +29,6 @@ public class EjercicioCommandPattern {
             imprimirCommandos(invoker);
             System.out.print("Elija un comando: ");
             key = scanner.next();
-
             invoker.pressButton(key.toLowerCase());
             System.out.println("-----------------------\n");
         }
@@ -46,9 +45,3 @@ public class EjercicioCommandPattern {
         }
     }
 }
-//    public void printCommands() { // remover responsabilidad de imprimir lista, simplemente retornar lista
-//        List<> commands = invoker.
-////        for (int i = 0; i < invoker.getCommands().size(); i++) {
-////            System.out.println(i + ". " + invoker.getCommands().get(i).getClass().getSimpleName()); // agregar nombre a los atributos de las clases concretas
-////        }
-//    }

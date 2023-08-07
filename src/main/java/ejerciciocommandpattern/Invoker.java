@@ -6,11 +6,19 @@ import java.util.List;
 public class Invoker {
 
     List<ICommand> commands = new ArrayList<>();
-    List<String> commandsName = new ArrayList<>();
+    List<String> commandsName;
 
     public void addCommand(ICommand command) {
         commands.add(command);
-        commandsName.add(command.getNombre());
+    }
+
+    public List<String> getCommandsName() {
+        commandsName = new ArrayList<>();
+        for (int i = 0; i < commands.size(); i++) {
+            commandsName.add(commands.get(i).getNombre());
+        }
+
+        return commandsName;
     }
 
     public void pressButton(String key) {
@@ -28,15 +36,11 @@ public class Invoker {
     }
 
     public boolean checkCommandExists(String key) {
-        if (commandsName.contains(key)) {
+        if (getCommandsName().contains(key)) {
             return true;
         } else {
             return false;
         }
-    }
-
-    public List<String> getCommandsName() {
-        return commandsName;
     }
 
 }
